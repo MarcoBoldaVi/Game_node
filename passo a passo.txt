@@ -1,0 +1,3 @@
+NPM install
+instalar o mongo 
+instalar o multiparty para poder receber um arquivo 

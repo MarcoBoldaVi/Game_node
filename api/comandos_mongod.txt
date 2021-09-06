@@ -1,0 +1,7 @@
+show dbs;
+use nome-do-database;
+db.getCollectionNames()
+db.nome-do-database.find().pretty()
+db.createCollection('nome-da-collection')
+db.createCollection('myCollection')
+db.nomedacollection.drop()

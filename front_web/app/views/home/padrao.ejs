@@ -1,0 +1,215 @@
+<!DOCTYPE HTML>
+<html lang="pt-br">
+	<head>
+		<meta charset="UTF-8">
+
+		<title>Instagram Clone - WEB</title>
+		
+		<!-- JQuery -->
+		<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+		<script src="js/bootstrap.js"></script>
+
+		<!-- bootstrap - link cdn -->
+	    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> --> 	
+		<!-- incluindo css -->
+		<link href="css/style.css" rel="stylesheet">
+		<link href="css/bootstrap.css" rel="stylesheet">
+		<link href="css/bootstrap-grid.css" rel="stylesheet">
+
+		<script>
+			$(document).ready(function(){
+                /*
+                function carrega_champions(){
+                    var xhr = new XMLHttpRequest();   
+                    xhr.open("GET", "http://localhost:8080/api");
+                    
+                    xhr.onload = function(){
+                        if(xhr.status === 200){
+                            var data = $.parseJSON(xhr.responseText);
+                            for(i = 0; i < data.length; i++){
+                                $('#container_champions').append(
+                                    
+                                        '<div class="card">' + 
+                                            '<div class="panel-heading"><h4>' +
+                                                'Name: &nbsp;' +  data[i].name + 
+                                            '</h4></div>' + 
+                                            '<img class="card-img-top" src="http://localhost:8080/uploads/' + data[i].url_imagem + '"/>'+                            
+                                            '<ul class="list-group list-group-flush card-body">' + 
+                                                '<li class="list-group-item"> Damage: &nbsp;'   + data[i].damage + '</li>' +
+                                                '<li class="list-group-item "> defence: &nbsp;'  + data[i].defence + '</li>' +
+                                                '<li class="list-group-item "> Hp: &nbsp;'       + data[i].hp + '</li>' +
+                                            '</ul>'    +                                
+                                            '</div>' +
+                                        '</div>' 
+                                )
+                            }
+                        }
+                    }
+                    
+                    xhr.send();
+                }
+                
+                carrega_champions();
+                */
+				$('#btn-cancelar-publicacao').click(function(){
+					$('#container_timeline').show();
+					$('#container_form').hide();
+					return false;
+				});
+                
+                $('#btn-adicionar').click(function(){
+                    // criar um formData
+                    var formData = new FormData(); 
+                    var arquivo = document.getElementById("arquivo").files[0]; 
+                    var name = document.getElementById("name").value; 
+                    var damage = document.getElementById("damage").value; 
+                    var defence = document.getElementById("defence").value; 
+                    var hp = document.getElementById("hp").value; 
+                    
+                    formData.append("arquivo",arquivo);
+                    formData.append("name",name);
+                    formData.append("damage",damage);
+                    formData.append("defence",defence);
+                    formData.append("hp",hp);
+                    
+                    // criar um xmlhttprequest
+                    var xhr = new XMLHttpRequest();
+                    
+                    // verificar as mudanças de estado
+                    xhr.onreadystatechange = function(){
+                       if(xhr.readyState == 4 ) {
+                           var resposta = xhr.responseText; 
+                           document.getElementById('mensagem').innerHTML = resposta;
+                       }
+                    }
+                    
+                    // fazer o envio do nosso request
+                    xhr.open("POST", "http://localhost:8080/api");
+                    xhr.send(formData);
+                })
+			});
+		</script>
+	</head>
+
+	<body>
+
+		<nav class="navbar navbar-default">
+			<div class="container">
+				<div class="col-md-12">
+					<div class="container-fluid">
+						
+					</div>
+				</div>
+			</div>
+		</nav>
+        
+        <div class="container">
+     
+            <div class="card-deck" id="container_champions">
+
+                <div class="card">
+                    <div class="panel-heading"><h4>
+                        Name: &nbsp; AKALI 
+                    </h4></div> 
+                    <img class="card-img-top" src="http://localhost:8080/uploads/1630456418892_akali.jpg"/>                         
+                    <div class="card-body"> 
+                        <span class=""> <b>Damage:</b> &nbsp; 50</span> <br>
+                        <span class=" "> <b>defence:</b> &nbsp; 35</span> <br>
+                        <span class=" "> <b>Hp:</b> &nbsp;      100</span>
+                    </div>                                 
+                </div> 
+                                                
+                <div class="card">
+                    <div class="panel-heading"><h4>
+                        Name: &nbsp; AKALI 
+                    </h4></div> 
+                    <img class="card-img-top" src="http://localhost:8080/uploads/1630456418892_akali.jpg"/>                         
+                    <div class="card-body"> 
+                        <span class=""> <b>Damage:</b> &nbsp; 50</span> <br>
+                        <span class=" "> <b>defence:</b> &nbsp; 35</span> <br>
+                        <span class=" "> <b>Hp:</b> &nbsp;      100</span>
+                    </div>                                 
+                </div>  
+
+                <div class="card">
+                    <div class="panel-heading"><h4>
+                        Name: &nbsp; AKALI 
+                    </h4></div> 
+                    <img class="card-img-top" src="http://localhost:8080/uploads/1630456418892_akali.jpg"/>                         
+                    <div class="card-body"> 
+                        <span class=""> <b>Damage:</b> &nbsp; 50</span> <br>
+                        <span class=" "> <b>defence:</b> &nbsp; 35</span> <br>
+                        <span class=" "> <b>Hp:</b> &nbsp;      100</span>
+                    </div>                                 
+                </div>   
+                
+                <div class="card">
+                    <div class="panel-heading"><h4>
+                        Name: &nbsp; AKALI 
+                    </h4></div> 
+                    <img class="card-img-top" src="http://localhost:8080/uploads/1630456418892_akali.jpg"/>                         
+                    <div class="card-body"> 
+                        <span class=""> <b>Damage:</b> &nbsp; 50</span> <br>
+                        <span class=" "> <b>defence:</b> &nbsp; 35</span> <br>
+                        <span class=" "> <b>Hp:</b> &nbsp;      100</span>
+                    </div>                                 
+                </div>              
+                
+                <div class="card">
+                    <div class="panel-heading"><h4>
+                        Name: &nbsp; AKALI 
+                    </h4></div> 
+                    <img class="card-img-top" src="http://localhost:8080/uploads/1630456418892_akali.jpg"/>                         
+                    <div class="card-body"> 
+                        <span class=""> <b>Damage:</b> &nbsp; 50</span> <br>
+                        <span class=" "> <b>defence:</b> &nbsp; 35</span> <br>
+                        <span class=" "> <b>Hp:</b> &nbsp;      100</span>
+                    </div>                                 
+                </div>  
+            </div>
+        </div>
+     
+    
+        
+        
+		<div class="container col-6" style="display" id="container_form">
+			<div class="card card-header">
+
+			    <div class="panel-heading"><h4>Adicionar novo personagem</h4></div>
+			
+                <div class="card-body">
+                    <div class="form-group">
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Nome" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <input type="number" name="damage" id="damage" class="form-control" placeholder="Damage" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <input type="number" name="defence" id="defence" class="form-control" placeholder="Defence" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <input type="number" name="hp" id="hp" class="form-control" placeholder="Hp" autocomplete="off">
+                    </div>
+
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="arquivo" required>
+                        <label class="custom-file-label" for="validatedCustomFile">Escolha a imagem do Personagem</label>
+                    </div>
+
+                <!--     
+                    <div class="form-group">
+                        <input type="file" name="arquivo" id="arquivo" class="form-control">
+                    </div>
+                -->
+
+                    <div class="form-group mt-3">
+                        <button class="btn btn-success" id="btn-adicionar">Salvar</button>
+                        <button class="btn btn-danger" id="btn-cancelar-publicacao">Cancelar</button>
+                    </div>
+
+                    <div id="mensagem"></div>
+                </div>
+            </div>
+		</div>
+	</body>
+</html>

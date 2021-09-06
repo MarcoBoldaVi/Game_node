@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width-device-width, initial-scale = 1, shrink-to-fit=no">
+    <title>GAME</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+</head>       
+<body class="bg-dark">
+    <div class="contaner-fluid">
+        <div class="container bg ">
+            <div class="row mt-4" >
+                 <div id="acao" class="offset-2 col-8 "></div>
+            </div>
+            <div class="row" id="persons">
+                <div id="ladoAtaque">
+                    <div id="person1" class="my-1 mx-4 lado-a" ataque=10 >
+                        <img src="img/Borda%203.png" alt="" class="borda"> 
+                        <div class="bg-char" id="person1Img">  </div>
+                        <div class=" mt-1">
+                            <progress id="hpPerson1" max="100" value="100" class="hpPerson ">100</progress>
+                            <p id="p1Hp" class="hpNumberPerson">100</p>
+                        </div>
+                    </div>
+                    
+                    <div id="person2" class="my-1 mx-4 lado-a" ataque=20>
+                        <img src="img/Borda%203.png" alt="" class="borda"> 
+                        <div class="bg-char" id="person2Img">  </div>
+                        <div class=" mt-1">
+                            <progress id="hpPerson2" max="100" value="100" class="hpPerson ">100</progress>
+                            <p id="p2Hp" class="hpNumberPerson">100</p>
+                        </div>
+                    </div>
+                    <div id="person3" class=" my-1 mx-4 lado-a"  ataque=30>
+                        <img src="img/Borda%203.png" alt="" class="borda"> 
+                        <div class="bg-char" id="person3Img"> </div>
+                        <div class=" mt-1">
+                            <progress id="hpPerson3" max="100" value="100" class="hpPerson">100</progress>
+                            <p id="p3Hp" class="hpNumberPerson">100</p>
+                        </div> 
+
+                    </div>
+                </div>
+                <div class="col">
+                </div>
+                <div id="ladoDefesa">
+                    <div id="person4" class="my-1 mx-4 lado-b" >
+                        <img src="img/Borda%203.png" alt="" class="borda"> 
+                        <div class="bg-char" id="person4Img"> </div>
+                        <div class=" mt-1">
+                            <progress id="hpPerson4" max="100" value="100" class="hpPerson" content="teste">100</progress>
+                            <p id="p4Hp" class="hpNumberPerson">100</p>
+                        </div>
+
+                    </div>
+                    <div id="person5" class="my-1 mx-4 lado-b">
+                        <img src="img/Borda%203.png" alt="" class="borda"> 
+                        <div class="bg-char" id="person5Img"></div>
+                           <div class=" mt-1">
+                            <progress id="hpPerson5" max="100" value="100" class="hpPerson">100</progress>
+                            <p id="p5Hp" class="hpNumberPerson">100</p>
+                        </div>
+                    </div>
+                    <div id="person6" class=" my-1 mx-4 lado-b">
+                        <img src="img/Borda%203.png" alt="" class="borda"> 
+                        <div class="bg-char" id="person6Img"></div>
+                        <div class=" mt-1">
+                            <progress id="hpPerson6" max="100" value="100" class="hpPerson">100</progress>
+                            <p id="p6Hp" class="hpNumberPerson">100</p>
+                        </div>
+
+                    </div>
+                </div>
+           </div>
+           <div id="detalhes" class="row mx-2"></div>
+        </div>
+    </div>
+    
+<script src="js/funcoes.js"></script>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.js"></script>
+    <script>
+        
+       var $atacantes = fnc.$$(".lado-a"); 
+       for(var i = 0; i < $atacantes.length; i++){
+           $atacantes[i].addEventListener('click', fnc.atak);
+       } 
+        
+       var $defensores = fnc.$$(".lado-b"); 
+       for(var i = 0; i < $defensores.length; i++){
+           $defensores[i].addEventListener('click', fnc.concluirAtak);
+       } 
+        
+        
+     /*  var $atacante = fnc.$("#person1"); 
+       var $atacante2 = fnc.$("#person2"); 
+       var $atacante3 = fnc.$("#person3"); 
+       var $atacante4 = fnc.$("#person4"); 
+       var $atacante5 = fnc.$("#person5"); 
+       var $atacante6 = fnc.$("#person6"); 
+        
+       $atacante.addEventListener('click', fnc.atak);
+       $atacante2.addEventListener('click', fnc.atak);
+       $atacante3.addEventListener('click', fnc.atak);
+       $atacante4.addEventListener('click', fnc.atak);
+       $atacante5.addEventListener('click', fnc.atak);
+       $atacante6.addEventListener('click', fnc.atak);*/
+        
+   /* var $btns = document.getElementsByTagName('button');
+    
+    for(var i = 0; i < $btns.length; i++){
+        $btns[i].addEventListener('click', clicou);
+    } */
+    </script>
+</body>
+</html>
