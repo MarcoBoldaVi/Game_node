@@ -19,6 +19,7 @@
 		<script>
 			$(document).ready(function(){
                 
+
                 function carrega_champions(){
                     var xhr = new XMLHttpRequest();   
                     xhr.open("GET", "http://localhost:8080/api");
@@ -28,16 +29,25 @@
                             var data = $.parseJSON(xhr.responseText);
                             for(i = 0; i < data.length; i++){
                                 $('#container_champions').append(
-                                    '<div class="card bg-dark">' + 
+                                    '<div class="card bg-dark championID" id="'+ data[i]._id +'">' + 
                                         '<img class="card-img-top" src="http://localhost:8080/uploads/' + data[i].url_imagem + '"/>'+                            
                                         '<div class="panel-heading">'+
                                             '<h5>&nbsp;' +  data[i].name + '</h5>' +
                                         '</div>' + 
-                                        '<div class="card-body">' + 
-                                            '<span>Damage: &nbsp;'   + data[i].damage + '</span> </br>' +
-                                            '<span>defence: &nbsp;'  + data[i].defence + '</span></br>' +
-                                            '<span>Hp: &nbsp;'       + data[i].hp + '</span></br>' +
-                                        '</div>'    +                                
+                                        '<div class="card-body form-row">' + 
+                                            '<div class="mb-1">' +
+                                                '<label class="col-6">Damage:</label>' + 
+                                                '<input style="" type="number" class="col-6" value="'+ data[i].damage + '">' +
+                                            '<div class="mb-1">' +
+                                                '<label class="col-6">defence: </label>'  + 
+                                                '<input style="" type="number" class="col-6" value="'+ data[i].defence + '">'+
+                                            '<div class="mb-1">' +
+                                                '<label class="col-6">Hp: </label>'  +  
+                                                '<input style="" type="number" class="col-6" value="'+ data[i].hp + '">'+
+                                            '<div class="ml-1">' + 
+                                                '<a href="#" class="btn btn-outline-success col-6" id="btn-alterar">Salvar</a>'+
+                                                '<a href="#" class="btn btn-outline-danger col-6 btn-deletar" value="'+ data[i]._id +'" id="'+ data[i]._id +'">Deletar</a>'+
+                                        '</div>'+                                
                                     '</div>' 
                                 )
                             }
@@ -49,55 +59,37 @@
                 
                 carrega_champions();
                 
-				$('#btn-cancelar-publicacao').click(function(){
-					$('#container_timeline').show();
-					$('#container_form').hide();
-					return false;
-				});
-                
-                $('#btn-adicionar').click(function(){
-                    // criar um formData
-                    var formData = new FormData(); 
-                    var arquivo = document.getElementById("arquivo").files[0]; 
-                    var name = document.getElementById("name").value; 
-                    var damage = document.getElementById("damage").value; 
-                    var defence = document.getElementById("defence").value; 
-                    var hp = document.getElementById("hp").value; 
+                $(document).on('click','.btn-deletar', function(event){
+                    var $char  =  document.getElementById(this.id);
                     
-                    formData.append("arquivo",arquivo);
-                    formData.append("name",name);
-                    formData.append("damage",damage);
-                    formData.append("defence",defence);
-                    formData.append("hp",hp);
-                    
+                    var championID = $char.id;
+            
                     // criar um xmlhttprequest
                     var xhr = new XMLHttpRequest();
                     
+                    // fazer o envio do nosso request
+                    xhr.open("delete", "http://localhost:8080/api/"+championID);
+                    
                     // verificar as mudanças de estado
-                    xhr.onreadystatechange = function(){
-                       if(xhr.readyState == 4 ) {
-                           var resposta = xhr.responseText; 
-                           document.getElementById('mensagem').innerHTML = resposta;
+                    xhr.onload = function(){
+                       if(xhr.status === 200 ) {
+                           alert("Campeão Removido com sucesso");
+                           location.reload()
                        }
                     }
-                    
-                    // fazer o envio do nosso request
-                    xhr.open("POST", "http://localhost:8080/api");
-                    xhr.send(formData);
-                })
+                    xhr.send();
+           
+                })                
 			});
 		</script>
 	</head>
-
 	<body>
-
-
 <!-- Nav -->
-      <div  class="row mt-2">
+        <div  class="row mt-2">
           <div class="col-12">
                <nav class="navbar navbar-dark bg-dark navbar-expand-lg border-style">
                    <a href="#" class="">
-                       <img id="logo" src="../_imagens/logo.png" alt="" class="">
+                       <img id="logo" src="" alt="" class="">
                    </a>
                    <h5 class="text-light">Game_node</h5>
                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav1">
@@ -106,10 +98,10 @@
                    <div class="collapse navbar-collapse justify-content-between" id="nav1" >
                        <ul class="navbar-nav">
                           <li class="nav-item">
-                              <a href="#" class="nav-link active">Champions</a>
+                              <a href="/home" class="nav-link active">Champions</a>
                           </li>
                           <li class="nav-item">
-                              <a href="#" class="nav-link">Cadastro</a>
+                              <a href="/cadastro" class="nav-link">Cadastro</a>
                           </li>
 
                        </ul>
@@ -122,69 +114,11 @@
                    </div>
                </nav>
           </div>
-      </div>
-
-        
-        <div class="container">
-     
-            <div class="card-deck" id="container_champions">
-<!--
-                <div class="card">
-                    <img class="card-img-top" src="http://localhost:8080/uploads/1630456418892_akali.jpg"/>                         
-                    <div class="panel-heading"><h4>
-                        Name:&nbsp;AKALI 
-                    </h4></div> 
-                    <div class="card-body"> 
-                        <span class=""> <b>Damage:</b> &nbsp; 50</span> <br>
-                        <span class=" "> <b>defence:</b> &nbsp; 35</span> <br>
-                        <span class=" "> <b>Hp:</b> &nbsp;      100</span>
-                    </div>                                 
-                </div> 
-             </div>
--->
         </div>
-     
-    
-        
-        
-		<div class="container col-6" style="display" id="container_form">
-			<div class="card card-header">
-
-			    <div class="panel-heading"><h4>Adicionar Personagem </h4></div>
-			
-                <div class="card-body">
-                    <div class="form-group">
-                        <input type="text" name="name" id="name" class="form-control" placeholder="Nome" autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <input type="number" name="damage" id="damage" class="form-control" placeholder="Damage" autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <input type="number" name="defence" id="defence" class="form-control" placeholder="Defence" autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <input type="number" name="hp" id="hp" class="form-control" placeholder="Hp" autocomplete="off">
-                    </div>
-
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="arquivo" required>
-                        <label class="custom-file-label" for="validatedCustomFile">Escolha a imagem do Personagem</label>
-                    </div>
-
-                <!--     
-                    <div class="form-group">
-                        <input type="file" name="arquivo" id="arquivo" class="form-control">
-                    </div>
-                -->
-
-                    <div class="form-group mt-3">
-                        <button class="btn btn-success" id="btn-adicionar">Salvar</button>
-                        <button class="btn btn-danger" id="btn-cancelar-publicacao">Cancelar</button>
-                    </div>
-
-                    <div id="mensagem"></div>
-                </div>
-            </div>
-		</div>
+        <div id="mensagem"></div>
+<!-- listagem de campeões -->        
+        <div class="container">
+            <div class="card-deck" id="container_champions">
+        </div>
 	</body>
 </html>

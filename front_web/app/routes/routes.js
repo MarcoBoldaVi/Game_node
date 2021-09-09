@@ -6,4 +6,9 @@ module.exports = function(application){
 	application.get('/home', function(req, res){
 		application.app.controllers.home.home(application, req, res);
 	});
+
+    application.get('/cadastro', function(req, res){
+		application.app.controllers.home.cadastro(application, req, res);
+	});
+
 }

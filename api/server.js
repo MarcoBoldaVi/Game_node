@@ -1,4 +1,5 @@
 var express = require('express'),
+    cors = require('cors'),
     bodyParser = require('body-parser'),
     multiparty = require('connect-multiparty'),
     mongodb = require('mongodb'),
@@ -6,9 +7,11 @@ var express = require('express'),
     fs = require('fs');
 const { isBuffer } = require('util');
 
+
 var app = express();
 
 // body-parser
+app.use(cors())
 app.use(bodyParser.urlencoded({ extended:true}));
 app.use(bodyParser.json());
 app.use(multiparty());
@@ -118,7 +121,6 @@ app.get('/uploads/:imagem', function(req, res){
         } 
         res.writeHead(200, {'content-type' : 'image/jpg'});
         res.end(content);
-        console.log(content);
         
     })
 });
@@ -153,8 +155,8 @@ app.put('/api/:id', function(req, res){
 
 // DELETE
 app.delete('/api/:id', function(req, res){
-
     res.setHeader("Access-Control-Allow-Origin", "*");
+   
     db.open( function(err, mongoclient ){
         mongoclient.collection('champions', function(err, collection){
             collection.remove({ _id : objectId(req.params.id) },function(err, records){
@@ -167,4 +169,5 @@ app.delete('/api/:id', function(req, res){
             })
         })
     }); 
+    
 });
