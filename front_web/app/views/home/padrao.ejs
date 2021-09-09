@@ -29,7 +29,7 @@
                             var data = $.parseJSON(xhr.responseText);
                             for(i = 0; i < data.length; i++){
                                 $('#container_champions').append(
-                                    '<div class="card championID" id="'+ data[i]._id +'">' + 
+                                    '<div class="card championID " id="'+ data[i]._id +'">' + 
                                         '<div class="meta_champion">' +
                                             '<img class="card-img-top" src="http://localhost:8080/uploads/' + data[i].url_imagem + '"/>'+                            
                                             '<div class="panel-heading">'+
@@ -37,13 +37,13 @@
                                             '</div>' + 
                                         '</div>' + 
                                         '<div class="card-body form-row">' + 
-                                            '<div class="mb-1">' +
+                                            '<div class="">' +
                                                 '<label class="col-5">Damage:</label>' + 
                                                 '<input style="" type="number" class="col-5 offset-2" value="'+ data[i].damage + '">' +
-                                            '<div class="mb-1">' +
+                                            '<div class="">' +
                                                 '<label class="col-5">Defence: </label>'  + 
                                                 '<input style="" type="number" class="col-5 offset-2" value="'+ data[i].defence + '">'+
-                                            '<div class="mb-1">' +
+                                            '<div class="">' +
                                                 '<label class="col-5">Hp: </label>'  +  
                                                 '<input style="" type="number" class="col-5 offset-2" value="'+ data[i].hp + '">'+
                                             '<div class="ml-1">' + 
