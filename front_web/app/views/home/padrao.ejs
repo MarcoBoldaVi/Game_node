@@ -22,33 +22,37 @@
 
                 function carrega_champions(){
                     var xhr = new XMLHttpRequest();   
-                    xhr.open("GET", "http://localhost:8080/api");
+                    xhr.open("GET", "http://localhost:8080/api/champion");
                     
                     xhr.onload = function(){
                         if(xhr.status === 200){
                             var data = $.parseJSON(xhr.responseText);
                             for(i = 0; i < data.length; i++){
                                 $('#container_champions').append(
-                                    '<div class="card championID " id="'+ data[i]._id +'">' + 
+                                    '<div class="card championID mx-auto mb-2" id="'+ data[i]._id +'">' + 
                                         '<div class="meta_champion">' +
                                             '<img class="card-img-top" src="http://localhost:8080/uploads/' + data[i].url_imagem + '"/>'+                            
                                             '<div class="panel-heading">'+
                                                 '<h5>&nbsp;' +  data[i].name + '</h5>' +
                                             '</div>' + 
                                         '</div>' + 
-                                        '<div class="card-body form-row">' + 
+                                        '<div class="card-body ">' + 
                                             '<div class="">' +
                                                 '<label class="col-5">Damage:</label>' + 
-                                                '<input style="" type="number" class="col-5 offset-2" value="'+ data[i].damage + '">' +
+                                                '<input style="" type="number" class="col-5 offset-2" id="damage'+ data[i]._id +'" value="'+ data[i].damage + '">' +
+                                            '</div>' +
                                             '<div class="">' +
                                                 '<label class="col-5">Defence: </label>'  + 
-                                                '<input style="" type="number" class="col-5 offset-2" value="'+ data[i].defence + '">'+
+                                                '<input style="" type="number" class="col-5 offset-2" id="defence'+ data[i]._id +'" value="'+ data[i].defence + '">'+
+                                            '</div>' +
                                             '<div class="">' +
                                                 '<label class="col-5">Hp: </label>'  +  
-                                                '<input style="" type="number" class="col-5 offset-2" value="'+ data[i].hp + '">'+
-                                            '<div class="ml-1">' + 
-                                                '<a href="#" class="btn btn-outline-success col-5 " id="btn-alterar">Salvar</a>'+
+                                                '<input style="" type="number" class="col-5 offset-2" id="hp'+ data[i]._id +'" value="'+ data[i].hp + '">'+
+                                            '</div>' +
+                                            '<div class="">' + 
+                                                '<a href="#" class="btn btn-outline-success col-5 btn-alterar" id="'+ data[i]._id +'">Salvar</a>'+
                                                 '<a href="#" class="btn btn-outline-danger col-5 offset-2 btn-deletar" value="'+ data[i]._id +'" id="'+ data[i]._id +'">Deletar</a>'+
+                                            '</div>' +
                                         '</div>'+                                
                                     '</div>' 
                                 )
@@ -70,18 +74,52 @@
                     var xhr = new XMLHttpRequest();
                     
                     // fazer o envio do nosso request
-                    xhr.open("delete", "http://localhost:8080/api/"+championID);
+                    xhr.open("delete", "http://localhost:8080/api/champion/"+championID);
                     
                     // verificar as mudanças de estado
                     xhr.onload = function(){
                        if(xhr.status === 200 ) {
-                           alert("Campeão Removido com sucesso");
+                           alert("Campeão removido com sucesso");
                            location.reload()
                        }
                     }
                     xhr.send();
            
-                })                
+                });
+                
+                $(document).on('click','.btn-alterar', function(event){
+                    var $char = document.getElementById(this.id);
+                   
+                    var championID = $char.id;
+                    var damage = "damage" + championID;
+                    var defence = "defence" + championID;
+                    var hp = "hp" + championID;
+                    
+                    var formData = new FormData(); 
+                    var damageD = document.getElementById(damage).value; 
+                    var defenceD = document.getElementById(defence).value; 
+                    var hpD = document.getElementById(hp).value; 
+                    
+                    formData.append("damage",damageD);
+                    formData.append("defence",defenceD);
+                    formData.append("hp",hpD);
+                    
+                // criar um xmlhttprequest
+                    var xhr = new XMLHttpRequest();
+                    
+                // verificar as mudanças de estado
+                    xhr.onreadystatechange = function(){
+                        if(xhr.readyState == 4 ) {
+                           alert("Campeão alterado com sucesso");
+                           location.reload()
+                        }
+                    }
+                    
+                // fazer o envio do nosso request
+                    xhr.open("PUT", "http://localhost:8080/api/champion/"+championID);
+                    xhr.send(formData);
+                })   
+                    
 			});
 		</script>
 	</head>

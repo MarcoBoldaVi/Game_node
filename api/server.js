@@ -5,6 +5,7 @@ var express = require('express'),
     mongodb = require('mongodb'),
     objectId = require('mongodb').ObjectId,
     fs = require('fs');
+
 const { isBuffer } = require('util');
 
 
@@ -15,6 +16,14 @@ app.use(cors())
 app.use(bodyParser.urlencoded({ extended:true}));
 app.use(bodyParser.json());
 app.use(multiparty());
+
+//app.use(function(req,res,next){
+//    
+//    res.setHeader("Access-Control-Allow-Origin", "*");
+//    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+//    res.setHeader("Access-Control-Allow-Headers", "Content-type");
+//    res.setHeader("Access-Control-Allow-Credentials", true);
+//})
 
 var port = 8080;
 
@@ -30,10 +39,10 @@ console.log('Servidor Http online porta ' + port);
 app.get('/', function(req, res){
     res.send({msg: 'olá'});
 });
-
-// POST
-app.post('/api', function(req, res){
-    res.setHeader("Access-Control-Allow-Origin", "*");
+                                                                            // CHAMPION
+// POST 
+app.post('/api/champion', function(req, res){
+   res.setHeader("Access-Control-Allow-Origin", "*");
 
     var date = new Date();
     time_stamp = date.getTime();
@@ -73,9 +82,9 @@ app.post('/api', function(req, res){
 });
 
 // GET All
-app.get('/api', function(req, res){
-
-    res.setHeader("Access-Control-Allow-Origin", "*");
+app.get('/api/champion', function(req, res){
+res.setHeader("Access-Control-Allow-Origin", "*");
+   
 
     db.open( function(err, mongoclient ){
         mongoclient.collection('champions', function(err, collection){
@@ -92,9 +101,9 @@ app.get('/api', function(req, res){
 });
 
 // GET Unique
-app.get('/api/:id', function(req, res){
+app.get('/api/champion/:id', function(req, res){
 
-    res.setHeader("Access-Control-Allow-Origin", "*");
+    
     db.open( function(err, mongoclient ){
         mongoclient.collection('champions', function(err, collection){
             collection.find(objectId(req.params.id)).toArray(function(err, results){
@@ -111,7 +120,7 @@ app.get('/api/:id', function(req, res){
 
 // GET image
 app.get('/uploads/:imagem', function(req, res){
-
+res.setHeader("Access-Control-Allow-Origin", "*");
     var img = req.params.imagem;
 
     fs.readFile('./uploads/'+img, function(err, content){
@@ -126,15 +135,14 @@ app.get('/uploads/:imagem', function(req, res){
 });
 
 // PUT
-app.put('/api/:id', function(req, res){
-
+app.put('/api/champion/:id', function(req, res){
     res.setHeader("Access-Control-Allow-Origin", "*");
+    console.log(req.body.damage);
     db.open( function(err, mongoclient ){
         mongoclient.collection('champions', function(err, collection){
             collection.update(
                 { _id : objectId(req.params.id)},
-                { $set : { name : req.body.name,
-                           damage: req.body.damage,
+                { $set : { damage: req.body.damage,
                            defence: req.body.defence,
                            hp: req.body.hp
                          }
@@ -154,9 +162,9 @@ app.put('/api/:id', function(req, res){
 });
 
 // DELETE
-app.delete('/api/:id', function(req, res){
+app.delete('/api/champion/:id', function(req, res){
     res.setHeader("Access-Control-Allow-Origin", "*");
-   
+    
     db.open( function(err, mongoclient ){
         mongoclient.collection('champions', function(err, collection){
             collection.remove({ _id : objectId(req.params.id) },function(err, records){
@@ -171,3 +179,5 @@ app.delete('/api/:id', function(req, res){
     }); 
     
 });
+
+                                                                                        // HABILITIES
